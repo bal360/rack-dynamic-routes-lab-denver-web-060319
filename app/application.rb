@@ -1,12 +1,14 @@
+require 'pry'
 class Application 
     
-    @@items = [Item.new("Figs",3.42),Item.new("Pears",0.99)]
+    @@items = [Item.new("Figs",3.42), Item.new("Pears",0.99)]
     
     def call(env)
         resp = Rack::Response.new
         req = Rack::Request.new(env)
 
         if req.path.match(/items/)
+            binding.pry
             item_search = req.path.split("/items/").last
            if item = @@items.find {|i| i.name == item_search }
             resp.write item.price
